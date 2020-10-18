@@ -59,7 +59,7 @@ By default, it converts only half-width Arabic numerals, but you can also conver
 arabic2kansuji("東京都新宿区西新宿２丁目８−１")
 # It can convert full-width Arabic numerals by providing an argument.
 arabic2kansuji("東京都新宿区西新宿２丁目８−１", width = "fullwidth")
-arabic2kansuji("全角アラビア数字１２３と半角アラビア数字の混在も引数を指定すると変換できます。", width = "all")
+arabic2kansuji("全角アラビア数字１２３と半角アラビア数字123の混在も引数を指定すると変換できます。", width = "all")
 ```
 
 By default, 0 is converted to rei (〇), but it can be converted to zero (零) by specifying an argument.
