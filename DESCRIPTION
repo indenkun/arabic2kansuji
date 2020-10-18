@@ -1,0 +1,15 @@
+Package: arabic2kansuji
+Type: Package
+Title: Convert Arabic numerals to kansuji
+Version: 0.0.0.9000
+Author: indenkun
+Maintainer: indenkun <blog@indenkun.hagenabolg.com>
+Description: Converts a given arabic mumerals to kansuji.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    purrr,
+    stringr,
+    stats

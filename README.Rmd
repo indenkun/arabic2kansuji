@@ -1,0 +1,129 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# arabic2kansuji
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+This `{arabic2kansuji}` is a package consisting of functions to convert Arabic numerals to kansuji.
+
+## Installation
+
+You can install `{arabic2kansuji}` from GitHub:
+
+``` r
+devtools::install_github("indenkun\arabic2kansuji")
+```
+
+## Example
+
+load library.
+
+```{r example}
+library(arabic2kansuji)
+```
+
+### `arabic2kansuji`
+
+`arabic2kansuji` is a function that converts Arabic numerals to kansuji verbatim.
+
+There is no need to enclose only half-width Arabic numerals with double-cotation marks.
+
+```{r}
+arabic2kansuji(1234567890)
+```
+
+If you give a string containing Arabic numerals, everything else is retained except the Arabic numerals to be converted. Strings containing Arabic numerals can be converted, but please enclose them in double-cotations
+
+```{r}
+arabic2kansuji("昭和64年は1989年1月7日までです。")
+```
+
+By default, it converts only half-width Arabic numerals, but you can also convert only full-width Arabic numerals or convert both full-width and half-width Arabic numerals to kansuji by specifying arguments.
+
+```{r}
+# By default, full-width Arabic numerals will not be converted.
+arabic2kansuji("東京都新宿区西新宿２丁目８−１")
+# It can convert full-width Arabic numerals by providing an argument.
+arabic2kansuji("東京都新宿区西新宿２丁目８−１", width = "fullwidth")
+arabic2kansuji("全角アラビア数字１２３と半角アラビア数字の混在も引数を指定すると変換できます。", width = "all")
+```
+
+By default, 0 is converted to rei (〇), but it can be converted to zero (零) by specifying an argument.
+
+```{r}
+arabic2kansuji("令和２年は2020年")
+arabic2kansuji("令和2年は2020年", zero = "zero")
+```
+
+Since this function only replaces Arabic numerals with kansuji verbatim, it cannot be converted by calculating 1234 as 千二百三十四. This feature is provided by the `arabic2kansuji_num` functions.
+
+### `arabic2kansuji_num`
+
+This `arabic2kansuji_num` calculates and converts a given number to a kanji value. For example, 1234 can be converted to 千二百三十四.
+
+```{r}
+arabic2kansuji_num(124271318)
+```
+
+However, currently only accept Arabic numerals. It is an issue for the future to support strings containing Arabic numerals and full-width Arabic numerals.
+
+```{r, error=TRUE}
+arabic2kansuji_num("124271318人")
+```
+
+For more than 17 digits, a warning is given because calculation processing may not be performed correctly due to problems on the R.
+
+```{r}
+arabic2kansuji_num(1234567890123456789)
+```
+
+Negative values are also supported. The notation will be 負kansuji.
+
+```{r}
+arabic2kansuji_num(-123456789)
+```
+
+Some values (e.g. 10 to the power of 10, such as 10 to the power of 10) cannot be correctly calculated to a multiple greater than 2147483647, resulting in an error. This is a problem that relies on R's integer processing, so there are no plans to fix it as the present time.
+
+```{r, error=TRUE}
+arabic2kansuji_num(10000000000)
+```
+
+## Improrts packges
+
+* `{purrr}`
+* `{stringr}`
+* `{stats}`
+
+## Reference
+
+The code and sites we used to write this code. Thank you very much.
+
+* [Rで文字列中の旧字体を新字体にまとめて変換する - Qiita](https://qiita.com/hzm_0901/items/c77bec84d261e0ae2bfe)
+* [uribo/zipangu](https://github.com/uribo/zipangu)
+
+## License
+
+MIT.
+
+## Notice
+
+The email address listed in the DESCRIPTION is a dummy. If you have any questions, please post them on ISSUE.
+
+## Known Issues
+
+* `arabic2kansuji_num` accepts only half-width Arabic numerals and not strings containing Arabic numerals or full-width Arabic numerals.
