@@ -15,7 +15,7 @@ Arabic numerals to kansuji.
 You can install `{arabic2kansuji}` from GitHub:
 
 ``` r
-devtools::install_github("indenkun\arabic2kansuji")
+devtools::install_github("indenkun/arabic2kansuji")
 ```
 
 ## Example
