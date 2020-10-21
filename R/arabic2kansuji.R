@@ -1,9 +1,11 @@
 #' Convert Arabic numerals to kansuji
 #' @description
 #' Converts a given arabic mumerals to kansuji. `arabic2kansuji` function can
-#'  also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
-#' function can convert a vector of only Arabic numerals to
-#' kansuji.
+#' also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
+#' function can convert a vector of only one Arabic numerals to kansuji. Use
+#' `arabic2kansuji_cal` if you want to convert one or more Arabic numerals to
+#' kansuji. `arabic2kansuji_all` can calculate and convert Arabic numerals to
+#' kansuji while retaining the original non-Arabic numeral string.
 #' @param str Input vector.
 #' @param zero Selects whether 0 should be zero like o ("rei") or zero like have
 #'             rain crown ("zero") when Arabic numerals are converted to kansuji.
@@ -23,7 +25,7 @@ arabic2kansuji <- function(str,
                            width = c("halfwidth", "fullwidth", "all")){
 
   zero <- match.arg(zero)
-  kaku <- match.arg(width)
+  width <- match.arg(width)
 
   arabicn_half <- "1234567890"
   arabicn_full <- "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19\uff10"
@@ -35,20 +37,20 @@ arabic2kansuji <- function(str,
   arabicn_full <- unlist(stringr::str_split(arabicn_full, ""))
   kansuji <- unlist(stringr::str_split(kansuji, ""))
 
-  if(kaku == "halfwidth") arabicn <- arabicn_half
-  else if(kaku == "fullwidth") arabicn <- arabicn_full
-  else if(kaku == "all"){
+  if(width == "halfwidth") arabicn <- arabicn_half
+  else if(width == "fullwidth") arabicn <- arabicn_full
+  else if(width == "all"){
     arabicn <- c(arabicn_half, arabicn_full)
     kansuji <- c(kansuji, kansuji)
   }
 
   names(kansuji) <- arabicn
 
-  stringr::str_replace_all(str,kansuji)
+  stringr::str_replace_all(str, kansuji)
 
 }
 
-#' @param num Input vector only number.
+#' @param num Input only one number.
 #' @importFrom purrr reduce
 #' @importFrom stringr boundary
 #' @importFrom stringr str_flatten
@@ -57,6 +59,7 @@ arabic2kansuji <- function(str,
 #' @export
 #'
 arabic2kansuji_num <- function(num){
+  if(length(table(num)) > 1) stop("only one number can convet to kansuji./n use `arabic2kansuji_cal` to convert to over 2 numbers.")
   if(!is.numeric(num)) stop("only number can convert to kansuji.")
 
   negative <- 0
@@ -144,6 +147,72 @@ arabic2kansuji_num <- function(num){
 
   n <- gsub("0", NA, n)
   if(negative == 1) n <- c("\u8ca0", n)
-  stringr::str_flatten(na.omit(n))
+  stringr::str_flatten(stats::na.omit(n))
 
+}
+
+
+#' @param nums Input only number. Accept more than one number.
+#' @importFrom purrr map_chr
+#' @rdname arabic2kansuji
+#' @export
+#'
+arabic2kansuji_cal <- function(nums){
+  unlist(purrr::map_chr(nums, arabic2kansuji_num))
+}
+
+#' @importFrom stringr str_split
+#' @importFrom stringr str_detect
+#' @importFrom stringr str_c
+#' @importFrom stringr str_replace_all
+#' @importFrom stats na.omit
+#'
+arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
+  widths <- match.arg(widths)
+  if(widths == "all"){
+    arabicn_half <- "1234567890"
+    arabicn_full <- "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19\uff10"
+
+    arabicn_half <- unlist(stringr::str_split(arabicn_half, ""))
+    arabicn_full <- unlist(stringr::str_split(arabicn_full, ""))
+
+    names(arabicn_half) <- arabicn_full
+
+    str <- stringr::str_replace_all(str, arabicn_half)
+  }
+
+  doc_num <- stats::na.omit(as.numeric(str_split(str, pattern = "[^0123456789]")[[1]]))
+  str <- stringr::str_replace_all(str, pattern = "[0123456789]", replacement = "00")
+  doc_str <- stringr::str_split(str, pattern = "[0123456789]")[[1]]
+
+  doc_num <- arabic2kansuji_cal(doc_num)
+
+  j <- 1
+  for(i in 1:length(doc_str)){
+    if(!str_detect(doc_str[i], pattern = "") && i == 1){
+      doc_str[i] <- doc_num[j]
+      j <- j + 1
+    }
+    else if(str_detect(doc_str[i - 1], pattern = "[^\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\u4e07\u5104\u5146\u4eac]")
+            && !str_detect(doc_str[i], pattern = "")){
+      doc_str[i] <- doc_num[j]
+      j <- j + 1
+    }
+    if((length(doc_num) + 1)  ==  j) break
+  }
+  ans <- str_c(doc_str, collapse = "")
+  return(ans)
+}
+
+#' @param widths Selects whether you want to convert Arabic numbers, only
+#'               half-width numbers ("halfwidth") or both half-width and
+#'               full-width numbers ("all") when converting Arabic numbers to
+#'               kansuji.
+#' @importFrom purrr map
+#' @rdname arabic2kansuji
+#' @export
+#'
+arabic2kansuji_all <- function(str, widths = c("halfwidth", "all")){
+  widths <- match.arg(widths)
+  unlist(purrr::map2(str, widths, arabic2kansuji_all_num))
 }
