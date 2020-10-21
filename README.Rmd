@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-This `{arabic2kansuji}` is a package consisting of functions to convert Arabic numerals to kansuji.
+`{arabic2kansuji}` is a package consisting of functions to convert Arabic numerals to kansuji.
 
 ## Installation
 

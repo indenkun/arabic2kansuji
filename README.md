@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-This `{arabic2kansuji}` is a package consisting of functions to convert
+`{arabic2kansuji}` is a package consisting of functions to convert
 Arabic numerals to kansuji.
 
 ## Installation
@@ -139,7 +139,9 @@ calculates and converts them to kansuji.
 ``` r
 x <- c(123, 456, 789)
 arabic2kansuji_num(x)
-#> Error in arabic2kansuji_num(x): only one number can convet to kansuji./n use `arabic2kansuji_cal` to convert to over 2 numbers.
+#> only one number can convet to kansuji. 
+#> use `arabic2kansuji_cal` to convert to over 2 numbers.
+#> Error in arabic2kansuji_num(x):
 ```
 
 ``` r
