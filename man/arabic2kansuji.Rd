@@ -3,6 +3,8 @@
 \name{arabic2kansuji}
 \alias{arabic2kansuji}
 \alias{arabic2kansuji_num}
+\alias{arabic2kansuji_cal}
+\alias{arabic2kansuji_all}
 \title{Convert Arabic numerals to kansuji}
 \usage{
 arabic2kansuji(
@@ -11,29 +13,40 @@ arabic2kansuji(
   width = c("halfwidth", "fullwidth", "all")
 )
 
-arabic2kansuji_num(num, ...)
+arabic2kansuji_num(num)
+
+arabic2kansuji_cal(nums)
+
+arabic2kansuji_all(str, widths = c("halfwidth", "all"))
 }
 \arguments{
 \item{str}{Input vector.}
 
-\item{zero}{Selects whether 0 should be zero like o("rei") or zero like have
-rain crown("zero") when Arabic numerals are converted to kansuji.}
+\item{zero}{Selects whether 0 should be zero like o ("rei") or zero like have
+rain crown ("zero") when Arabic numerals are converted to kansuji.}
 
 \item{width}{Selects whether you want to convert Arabic numbers, only
-half-width numbers("halfwidth") or only full-width
-numbers("fullwidth") or both half-width and full-width
-numbers("all") when converting Arabic numbers to kansuji.}
+half-width numbers ("halfwidth") or only full-width
+numbers ("fullwidth") or both half-width and full-width
+numbers ("all") when converting Arabic numbers to kansuji.}
 
-\item{num}{Input vector only number.}
+\item{num}{Input only one number.}
 
-\item{...}{Other arguments to carry over to `arabic2kansuji`.}
+\item{nums}{Input only number. Accept more than one number.}
+
+\item{widths}{Selects whether you want to convert Arabic numbers, only
+half-width numbers ("halfwidth") or both half-width and
+full-width numbers ("all") when converting Arabic numbers to
+kansuji.}
 }
 \value{
 a character.
 }
 \description{
 Converts a given arabic mumerals to kansuji. `arabic2kansuji` function can
- also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
-function can convert a vector of only Arabic numerals to
-kansuji.
+also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
+function can convert a vector of only one Arabic numerals to kansuji. Use
+`arabic2kansuji_cal` if you want to convert one or more Arabic numerals to
+kansuji. `arabic2kansuji_all` can calculate and convert Arabic numerals to
+kansuji while retaining the original non-Arabic numeral string.
 }

@@ -88,14 +88,21 @@ arabic2kansuji_num(124271318)
 #> [1] "一億二千四百二十七万千三百十八"
 ```
 
-However, currently only accept Arabic numerals. It is an issue for the
-future to support strings containing Arabic numerals and full-width
-Arabic numerals.
+However, currently only accept one half-width Arabic numerals.
+
+Use `arabic2kansuji_cal` if you want to convert two or more half-width
+Arabic numerals by calculating the number of Chinese characters. You can
+also use `arabic2kansuji_all` to convert full-width Arabic numerals (as
+a string) to kansuji.
 
 ``` r
 arabic2kansuji_num("124271318人")
 #> Error in arabic2kansuji_num("124271318人"): only number can convert to kansuji.
 ```
+
+Use `arabic2kansuji_all` to calculate and convert Arabic numerals to
+kansuji while keeping the string in Arabic numerals containing the
+string.
 
 For more than 17 digits, a warning is given because calculation
 processing may not be performed correctly due to problems on the R.
@@ -123,6 +130,51 @@ arabic2kansuji_num(10000000000)
 #> Error in arabic2kansuji_num(1e+10): too large number and not good shape to convert.
 ```
 
+### `arabic2kansuji_call`
+
+`arabic2kansuji_num` does not accept more than one half-width Arabic
+numeral, but `arabic2kansuji_cal` accepts two or more Arabic numerals,
+calculates and converts them to kansuji.
+
+``` r
+x <- c(123, 456, 789)
+arabic2kansuji_num(x)
+#> Error in arabic2kansuji_num(x): only one number can convet to kansuji./n use `arabic2kansuji_cal` to convert to over 2 numbers.
+```
+
+``` r
+arabic2kansuji_cal(x)
+#> [1] "百二十三"   "四百五十六" "七百八十九"
+```
+
+### `arabic2kansuji_all`
+
+`arabic2kansuji_num` and `arabic2kansuji_cal` only accepts half-width
+Arabic numbers, but `arabic2kansuji_all` can convert a string containing
+a half-width Arabic number to kansuji and keep the string.
+`arabic2kansuji_all` can convert not only half-width Arabic numerals but
+also full-width Arabic numerals can be converted by specifying an
+argument. However, it is not possible to convert only the full-size
+Arabic numerals in the string and keep the half-size Arabic numerals.
+
+``` r
+arabic2kansuji_all("昭和64年は1989年1月7日までです。")
+#> [1] "昭和六十四年は千九百八十九年一月七日までです。"
+arabic2kansuji_all("平成３１年は2019年4月30日までです。")
+#> [1] "平成３１年は二千十九年四月三十日までです。"
+arabic2kansuji_all("平成３１年は2019年4月30日までです。", widths = "all")
+#> [1] "平成三十一年は二千十九年四月三十日までです。"
+```
+
+`arabic2kansuji_all` can receive more than one string.
+
+``` r
+x <- c("昭和64年は1989年1月7日までです。", "平成31年は2019年4月30日までです。")
+arabic2kansuji_all(x)
+#> [1] "昭和六十四年は千九百八十九年一月七日までです。"
+#> [2] "平成三十一年は二千十九年四月三十日までです。"
+```
+
 ## Improrts packges
 
   - `{purrr}`
@@ -145,8 +197,3 @@ MIT.
 
 The email address listed in the DESCRIPTION is a dummy. If you have any
 questions, please post them on ISSUE.
-
-## Known Issues
-
-  - `arabic2kansuji_num` accepts only half-width Arabic numerals and not
-    strings containing Arabic numerals or full-width Arabic numerals.
