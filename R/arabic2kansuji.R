@@ -181,7 +181,7 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
     str <- stringr::str_replace_all(str, arabicn_half)
   }
 
-  doc_num <- stats::na.omit(as.numeric(str_split(str, pattern = "[^0123456789]")[[1]]))
+  doc_num <- stats::na.omit(as.numeric(stringr::str_split(str, pattern = "[^0123456789]")[[1]]))
   str <- stringr::str_replace_all(str, pattern = "[0123456789]", replacement = "00")
   doc_str <- stringr::str_split(str, pattern = "[0123456789]")[[1]]
 
@@ -189,18 +189,18 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
 
   j <- 1
   for(i in 1:length(doc_str)){
-    if(!str_detect(doc_str[i], pattern = "") && i == 1){
+    if(!stringr::str_detect(doc_str[i], pattern = "") && i == 1){
       doc_str[i] <- doc_num[j]
       j <- j + 1
     }
-    else if(str_detect(doc_str[i - 1], pattern = "[^\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\u4e07\u5104\u5146\u4eac]")
-            && !str_detect(doc_str[i], pattern = "")){
+    else if(stringr::str_detect(doc_str[i - 1], pattern = "[^\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\u4e07\u5104\u5146\u4eac]")
+            && !stringr::str_detect(doc_str[i], pattern = "")){
       doc_str[i] <- doc_num[j]
       j <- j + 1
     }
     if((length(doc_num) + 1)  ==  j) break
   }
-  ans <- str_c(doc_str, collapse = "")
+  ans <- stringr::str_c(doc_str, collapse = "")
   return(ans)
 }
 
