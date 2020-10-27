@@ -59,7 +59,7 @@ arabic2kansuji <- function(str,
 #' @export
 #'
 arabic2kansuji_num <- function(num){
-  if(length(table(num)) > 1) stop( writeLines("only one number can convert to kansuji. \nuse `arabic2kansuji_cal` to convert to over 2 numbers."))
+  if(length(num) > 1) stop( writeLines("only one number can convert to kansuji. \nuse `arabic2kansuji_cal` to convert to over 2 numbers."))
   if(!is.numeric(num)) stop("only number can convert to kansuji.")
 
   negative <- 0
