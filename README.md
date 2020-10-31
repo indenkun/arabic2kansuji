@@ -185,12 +185,8 @@ arabic2kansuji_all(x)
 
 ## Known Issue
 
-<<<<<<< HEAD
 `arabic2kansuji_num`, `arabic2kansuji_call` and `arabic2kansuji_all` is
 that it represents a single number like this “1億2345万6789”, mixed Arabic
-=======
-It represents a single number like this “1億2345万6789”, mixed Arabic
->>>>>>> c2f78c71ce8448587640322eedfcd1e4e7a3a754
 numeral and kansuji do not convert well.
 
 ## Reference
