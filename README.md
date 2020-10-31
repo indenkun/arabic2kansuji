@@ -139,7 +139,7 @@ calculates and converts them to kansuji.
 ``` r
 x <- c(123, 456, 789)
 arabic2kansuji_num(x)
-#> only one number can convet to kansuji. 
+#> only one number can convert to kansuji. 
 #> use `arabic2kansuji_cal` to convert to over 2 numbers.
 #> Error in arabic2kansuji_num(x):
 ```
@@ -182,6 +182,12 @@ arabic2kansuji_all(x)
   - `{purrr}`
   - `{stringr}`
   - `{stats}`
+
+## Known Issue
+
+`arabic2kansuji_num`, `arabic2kansuji_call` and `arabic2kansuji_all` is
+that it represents a single number like this “1億2345万6789”, mixed Arabic
+numeral and kansuji do not convert well.
 
 ## Reference
 
