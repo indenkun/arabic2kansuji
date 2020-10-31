@@ -58,7 +58,7 @@ arabic2kansuji <- function(str,
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_num <- function(num){
+arabic2kansuji_num <- function(num, ...){
   if(length(num) > 1) stop( writeLines("only one number can convert to kansuji. \nuse `arabic2kansuji_cal` to convert to over 2 numbers."))
   if(!is.numeric(num)) stop("only number can convert to kansuji.")
 
@@ -71,6 +71,8 @@ arabic2kansuji_num <- function(num){
                                         stringr::boundary(type = "character")),
                      c)
   n <- suppressWarnings(as.numeric(n))
+
+  if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(na.omit(n), ...))
 
   if(anyNA(n)){
     if(num > 2147483647) stop("too large number and not good shape to convert.")
@@ -157,8 +159,8 @@ arabic2kansuji_num <- function(num){
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_cal <- function(nums){
-  unlist(purrr::map_chr(nums, arabic2kansuji_num))
+arabic2kansuji_cal <- function(nums, ...){
+  unlist(purrr::map_chr(nums, arabic2kansuji_num, ...))
 }
 
 #' @importFrom stringr str_split
@@ -212,7 +214,7 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_all <- function(str, widths = c("halfwidth", "all")){
+arabic2kansuji_all <- function(str, widths = c("halfwidth", "all"), ...){
   widths <- match.arg(widths)
-  unlist(purrr::map2(str, widths, arabic2kansuji_all_num))
+  unlist(purrr::map2(str, widths, arabic2kansuji_all_num), ...)
 }

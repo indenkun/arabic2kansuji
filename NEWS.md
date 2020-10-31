@@ -1,3 +1,9 @@
+# arabic2kansuji 0.0.0.9901
+
+## BUG FIXES
+
+* `arabic2kansuji_num`, `arabic2kansuji_cal` and `arabic2kansuji_all`: Fixed a problem where the conversion could not work well for 0 only.
+
 # arabic2kansuji 0.0.0.9900
 
 ## NEW FEATURES

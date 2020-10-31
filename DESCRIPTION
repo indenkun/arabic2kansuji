@@ -1,7 +1,7 @@
 Package: arabic2kansuji
 Type: Package
 Title: Convert Arabic numerals to kansuji
-Version: 0.0.0.9900
+Version: 0.0.0.9901
 Author: indenkun
 Maintainer: indenkun <blog@indenkun.hagenabolg.com>
 Description: Converts a given arabic mumerals to kansuji.
