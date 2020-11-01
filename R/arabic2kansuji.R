@@ -170,6 +170,8 @@ arabic2kansuji_cal <- function(nums, ...){
 #'
 arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
   widths <- match.arg(widths)
+
+  str_row <- str
   if(widths == "all"){
     arabicn_half <- "1234567890"
     arabicn_full <- "\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19\uff10"
@@ -185,7 +187,7 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
   doc_num <- stats::na.omit(stringr::str_split(str, pattern = "[^0123456789]")[[1]])
   doc_kansuji <- arabic2kansuji_cal(as.numeric(doc_num))
 
-  if(length(doc_num) == 0) return(str)
+  if(length(doc_num) == 0) return(str_row)
 
   for(i in 1:length(doc_num)){
     str <- stringr::str_replace(str, pattern = doc_num[i], replacement = doc_kansuji[i])
