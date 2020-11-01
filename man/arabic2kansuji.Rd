@@ -13,11 +13,11 @@ arabic2kansuji(
   width = c("halfwidth", "fullwidth", "all")
 )
 
-arabic2kansuji_num(num)
+arabic2kansuji_num(num, ...)
 
-arabic2kansuji_cal(nums)
+arabic2kansuji_cal(nums, ...)
 
-arabic2kansuji_all(str, widths = c("halfwidth", "all"))
+arabic2kansuji_all(str, widths = c("halfwidth", "all"), ...)
 }
 \arguments{
 \item{str}{Input vector.}
