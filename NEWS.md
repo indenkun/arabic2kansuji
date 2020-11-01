@@ -1,3 +1,11 @@
+# arabic2kansuji 0.0.0.9902
+
+## BUG FIXES
+
+* Fixed a bug that prevented `arabic2kansuji_all` from converting Arabic numerals and kansuji into a single number(e.g., 1億2345万6789).
+
+* `arabic2kansuji_all`'s processing system has been slightly revised to improve its speed.
+
 # arabic2kansuji 0.0.0.9901
 
 ## BUG FIXES

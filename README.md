@@ -183,12 +183,6 @@ arabic2kansuji_all(x)
   - `{stringr}`
   - `{stats}`
 
-## Known Issue
-
-`arabic2kansuji_num`, `arabic2kansuji_call` and `arabic2kansuji_all` is
-that it represents a single number like this “1億2345万6789”, mixed Arabic
-numeral and kansuji do not convert well.
-
 ## Reference
 
 The code and sites we used to write this code. Thank you very much.
