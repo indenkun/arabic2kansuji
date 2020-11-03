@@ -101,7 +101,7 @@ Negative values are also supported. The notation will be 負kansuji.
 arabic2kansuji_num(-123456789)
 ```
 
-Some values (e.g. 10 to the power of 10, such as 10 to the power of 10) cannot be correctly calculated to a multiple greater than 2147483647, resulting in an error. This is a problem that relies on R's integer processing, so there are no plans to fix it as the present time.
+Some values (such as 10 to the power of 10) cannot be correctly calculated to a multiple greater than 2147483647, resulting in an error. This is a problem that relies on R's integer processing, so there are no plans to fix it as the present time.
 
 ```{r, error=TRUE}
 arabic2kansuji_num(10000000000)

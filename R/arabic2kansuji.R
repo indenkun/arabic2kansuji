@@ -56,7 +56,7 @@ arabic2kansuji <- function(str,
 #' @importFrom stats na.omit
 #'
 arabic2kansuji_cal <- function(num, ...){
-  if(length(num) > 1) stop( writeLines("only one number can convert to kansuji. \nuse `arabic2kansuji_cal` to convert to over 2 numbers."))
+  if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
   if(!is.numeric(num)) stop("only number can convert to kansuji.")
 
   negative <- 0
@@ -72,15 +72,13 @@ arabic2kansuji_cal <- function(num, ...){
   if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(na.omit(n), ...))
 
   if(anyNA(n)){
-    if(num > 2147483647) stop("too large number and not good shape to convert.")
+    if(num > 2147483647) stop("too large number and Unsupported numerical form to convert.")
     num <- as.integer(num)
     n <- purrr::reduce(stringr::str_split(num,
                                           stringr::boundary(type = "character")),
                        c)
     n <- as.numeric(n)
   }
-
-  if(length(n) >= 17) warning("too long to convert.")
 
   m <- max(which(n >= 0)) - which(n >= 0) + 1
   names(n) <- m
@@ -157,6 +155,9 @@ arabic2kansuji_cal <- function(num, ...){
 #' @export
 #'
 arabic2kansuji_num <- function(num, ...){
+  if(!is.numeric(num)) stop("only number can convert to kansuji.")
+  if(any(num >= 1e+17)) warning("any number, too long to convert exactly.")
+
   unlist(purrr::map(num, arabic2kansuji_cal, ...))
 }
 
