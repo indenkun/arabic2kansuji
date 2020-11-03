@@ -1,3 +1,13 @@
+# arabic2kansuji 0.0.0.9910
+
+## BUG FIXES
+
+* Problem solved with multiple functions that could not be converted Arabic numerals to kansuji correctly.
+
+## Deprecation
+
+* The functions of `arabic2kansuji_num`, which converts single Arabic numerals to kansuji, and `arabic2kansuji_cal`, which accepts multiple Arabic numerals and converts them to kansuji are duplicated, so `arabic2kansuji_num` is now a function that converts multiple Arabic numerals to kansuji, and functions that accept single Arabic numerals can no longer be used (but existing in code as `arabic2kansuji_cal`).
+
 # arabic2kansuji 0.0.0.9902
 
 ## BUG FIXES

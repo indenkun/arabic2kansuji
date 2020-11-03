@@ -107,17 +107,11 @@ Some values (e.g. 10 to the power of 10, such as 10 to the power of 10) cannot b
 arabic2kansuji_num(10000000000)
 ```
 
-### `arabic2kansuji_call`
-
-`arabic2kansuji_num` does not accept more than one half-width Arabic numeral, but `arabic2kansuji_cal` accepts two or more Arabic numerals, calculates and converts them to kansuji.
+`arabic2kansuji_num`  accepts two or more Arabic numerals, calculates and converts them to kansuji.
 
 ```{r, error=TRUE}
 x <- c(123, 456, 789)
 arabic2kansuji_num(x)
-```
-
-```{r}
-arabic2kansuji_cal(x)
 ```
 
 ### `arabic2kansuji_all`
@@ -137,11 +131,26 @@ x <- c("昭和64年は1989年1月7日までです。", "平成31年は2019年4�
 arabic2kansuji_all(x)
 ```
 
+
+`arabic2kansuji_all` can also convert Arabic numerals and kansuji intended for digits to represent a single number, such as 1億2345万 intended for 一億二千三百四十五万. This is a kind of side effect that happens when Arabic numbers are converted to kansuji because the readings are just the same.
+
+```{r}
+arabic2kansuji_all("1億2345万")
+```
+
 ## Improrts packges
 
 * `{purrr}`
 * `{stringr}`
 * `{stats}`
+
+## Known Issue
+
+* `arabic2kansuji_all` a combination of Arabic and kansuji representing a single number of digits, such as tens or billions, but not including the next upper tens or billions of digits, such as 12345万, which is intended to be 一億二千三百四十五万, would be valued at 一万二千三百四十五 in the Arabic numeral place and would not appear in the intended form. There is currently no error on this issue.
+
+```{r}
+arabic2kansuji_all("12345万")
+```
 
 ## Reference
 
