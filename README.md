@@ -141,13 +141,13 @@ arabic2kansuji_num(x)
 
 ### `arabic2kansuji_all`
 
-`arabic2kansuji_num` and `arabic2kansuji_cal` only accepts half-width
-Arabic numbers, but `arabic2kansuji_all` can convert a string containing
-a half-width Arabic number to kansuji and keep the string.
-`arabic2kansuji_all` can convert not only half-width Arabic numerals but
-also full-width Arabic numerals can be converted by specifying an
-argument. However, it is not possible to convert only the full-size
-Arabic numerals in the string and keep the half-size Arabic numerals.
+`arabic2kansuji_num` only accepts half-width Arabic numbers, but
+`arabic2kansuji_all` can convert a string containing a half-width Arabic
+number to kansuji and keep the string. `arabic2kansuji_all` can convert
+not only half-width Arabic numerals but also full-width Arabic numerals
+can be converted by specifying an argument. However, it is not possible
+to convert only the full-size Arabic numerals in the string and keep the
+half-size Arabic numerals.
 
 ``` r
 arabic2kansuji_all("昭和64年は1989年1月7日までです。")
