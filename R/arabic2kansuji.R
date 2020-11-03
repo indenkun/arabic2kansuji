@@ -199,7 +199,7 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all"), ...){
 #'               half-width numbers ("halfwidth") or both half-width and
 #'               full-width numbers ("all") when converting Arabic numbers to
 #'               kansuji.
-#' @param ...    Other arguments to carry over to `arabic2kansuji()`
+#' @param ...    Other arguments to carry over to `arabic2kansuji()`.
 #' @importFrom purrr map
 #' @rdname arabic2kansuji
 #' @export

@@ -29,7 +29,7 @@ numbers ("all") when converting Arabic numbers to kansuji.}
 
 \item{num}{Input only number. Accept more than one number.}
 
-\item{...}{Other arguments to carry over to `arabic2kansuji()`}
+\item{...}{Other arguments to carry over to `arabic2kansuji()`.}
 
 \item{widths}{Selects whether you want to convert Arabic numbers, only
 half-width numbers ("halfwidth") or both half-width and
