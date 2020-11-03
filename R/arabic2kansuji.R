@@ -184,7 +184,9 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all")){
     str <- stringr::str_replace_all(str, arabicn_half)
   }
 
-  doc_num <- stats::na.omit(stringr::str_split(str, pattern = "[^0123456789]")[[1]])
+  doc_num <- stringr::str_split(str, pattern = "[^0123456789]")[[1]]
+  doc_num[doc_num == ""] <- NA
+  doc_num <- stats::na.omit(doc_num)
   doc_kansuji <- arabic2kansuji_cal(as.numeric(doc_num))
 
   if(length(doc_num) == 0) return(str_row)
