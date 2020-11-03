@@ -128,7 +128,7 @@ plans to fix it as the present time.
 
 ``` r
 arabic2kansuji_num(10000000000)
-#> Error in .f(.x[[i]], ...): too large number and not good shape to convert.
+#> Error in .f(.x[[i]], ...): too large number and Unsupported numerical form to convert.
 ```
 
 `arabic2kansuji_num` accepts two or more Arabic numerals, calculates and

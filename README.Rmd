@@ -131,7 +131,6 @@ x <- c("昭和64年は1989年1月7日までです。", "平成31年は2019年4�
 arabic2kansuji_all(x)
 ```
 
-
 `arabic2kansuji_all` can also convert Arabic numerals and kansuji intended for digits to represent a single number, such as 1億2345万 intended for 一億二千三百四十五万. This is a kind of side effect that happens when Arabic numbers are converted to kansuji because the readings are just the same.
 
 ```{r}
