@@ -3,7 +3,6 @@
 \name{arabic2kansuji}
 \alias{arabic2kansuji}
 \alias{arabic2kansuji_num}
-\alias{arabic2kansuji_cal}
 \alias{arabic2kansuji_all}
 \title{Convert Arabic numerals to kansuji}
 \usage{
@@ -14,8 +13,6 @@ arabic2kansuji(
 )
 
 arabic2kansuji_num(num, ...)
-
-arabic2kansuji_cal(nums, ...)
 
 arabic2kansuji_all(str, widths = c("halfwidth", "all"), ...)
 }
@@ -30,9 +27,9 @@ half-width numbers ("halfwidth") or only full-width
 numbers ("fullwidth") or both half-width and full-width
 numbers ("all") when converting Arabic numbers to kansuji.}
 
-\item{num}{Input only one number.}
+\item{num}{Input only number. Accept more than one number.}
 
-\item{nums}{Input only number. Accept more than one number.}
+\item{...}{Other arguments to carry over to `arabic2kansuji()`.}
 
 \item{widths}{Selects whether you want to convert Arabic numbers, only
 half-width numbers ("halfwidth") or both half-width and

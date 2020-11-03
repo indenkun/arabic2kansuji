@@ -97,7 +97,7 @@ a string) to kansuji.
 
 ``` r
 arabic2kansuji_num("124271318人")
-#> Error in arabic2kansuji_num("124271318人"): only number can convert to kansuji.
+#> Error in .f(.x[[i]], ...): only number can convert to kansuji.
 ```
 
 Use `arabic2kansuji_all` to calculate and convert Arabic numerals to
@@ -109,7 +109,7 @@ processing may not be performed correctly due to problems on the R.
 
 ``` r
 arabic2kansuji_num(1234567890123456789)
-#> Warning in arabic2kansuji_num(1234567890123456768): too long to convert.
+#> Warning in .f(.x[[i]], ...): too long to convert.
 #> [1] "百二十三京四千五百六十七兆八千九百一億二千三百四十五万六千七百六十八"
 ```
 
@@ -127,25 +127,15 @@ processing, so there are no plans to fix it as the present time.
 
 ``` r
 arabic2kansuji_num(10000000000)
-#> Error in arabic2kansuji_num(1e+10): too large number and not good shape to convert.
+#> Error in .f(.x[[i]], ...): too large number and not good shape to convert.
 ```
 
-### `arabic2kansuji_call`
-
-`arabic2kansuji_num` does not accept more than one half-width Arabic
-numeral, but `arabic2kansuji_cal` accepts two or more Arabic numerals,
-calculates and converts them to kansuji.
+`arabic2kansuji_num` accepts two or more Arabic numerals, calculates and
+converts them to kansuji.
 
 ``` r
 x <- c(123, 456, 789)
 arabic2kansuji_num(x)
-#> only one number can convert to kansuji. 
-#> use `arabic2kansuji_cal` to convert to over 2 numbers.
-#> Error in arabic2kansuji_num(x):
-```
-
-``` r
-arabic2kansuji_cal(x)
 #> [1] "百二十三"   "四百五十六" "七百八十九"
 ```
 
@@ -177,11 +167,39 @@ arabic2kansuji_all(x)
 #> [2] "平成三十一年は二千十九年四月三十日までです。"
 ```
 
+`arabic2kansuji_all` can also convert Arabic numerals and kansuji
+intended for digits to represent a single number, such as 1億2345万
+intended for 一億二千三百四十五万. This is a kind of side effect that happens when
+Arabic numbers are converted to kansuji because the readings are just
+the same.
+
+``` r
+arabic2kansuji_all("1億2345万")
+#> [1] "一億二千三百四十五万"
+```
+
 ## Improrts packges
 
   - `{purrr}`
   - `{stringr}`
   - `{stats}`
+
+## Known Issue
+
+  - `arabic2kansuji_all` a combination of Arabic and kansuji
+    representing a single number of digits, such as tens or billions,
+    but not including the next upper tens or billions of digits, such as
+    12345万, which is intended to be 一億二千三百四十五万, would be valued at
+    一万二千三百四十五 in the Arabic numeral place and would not
+    appear in the intended form. There is currently no error on this
+    issue.
+
+<!-- end list -->
+
+``` r
+arabic2kansuji_all("12345万")
+#> [1] "一万二千三百四十五万"
+```
 
 ## Reference
 
