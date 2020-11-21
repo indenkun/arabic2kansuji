@@ -3,8 +3,7 @@
 #' Converts a given arabic mumerals to kansuji. `arabic2kansuji` function can
 #' also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
 #' function can convert a vector of only one Arabic numerals to kansuji. Use
-#' `arabic2kansuji_cal` if you want to convert one or more Arabic numerals to
-#' kansuji. `arabic2kansuji_all` can calculate and convert Arabic numerals to
+#' `arabic2kansuji_all` can calculate and convert Arabic numerals to
 #' kansuji while retaining the original non-Arabic numeral string.
 #' @param str Input vector.
 #' @param zero Selects whether 0 should be zero like o ("rei") or zero like have
