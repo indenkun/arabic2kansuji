@@ -56,7 +56,17 @@ arabic2kansuji <- function(str,
 #'
 arabic2kansuji_cal <- function(num, ...){
   if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
-  if(!is.numeric(num)) stop("only number can convert to kansuji.")
+  if(!is.numeric(num)){
+    warning("only number can convert to kansuji.")
+    return(NA)
+  }
+  if(is.na(num) || is.nan(num) || is.infinite(num) || is.null(num)){
+    warning("only number can convert to kansuji.")
+    return(num)
+  }
+
+  user.scipen <- getOption("scipen")
+  options(scipen = 100)
 
   negative <- 0
   if(num < 0){
@@ -71,12 +81,20 @@ arabic2kansuji_cal <- function(num, ...){
   if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(na.omit(n), ...))
 
   if(anyNA(n)){
-    if(num > 2147483647) stop("too large number and Unsupported numerical form to convert.")
     num <- as.integer(num)
     n <- purrr::reduce(stringr::str_split(num,
                                           stringr::boundary(type = "character")),
                        c)
     n <- as.numeric(n)
+  }
+
+  options(scipen = user.scipen)
+
+  if(any(num >= 1e+17 && num < 1e+20)){
+    warning("too long number to convert exactly.")
+  }else if(num >= 1e+20){
+    warning("too large number to convert.")
+    return(NA)
   }
 
   m <- max(which(n >= 0)) - which(n >= 0) + 1
@@ -154,10 +172,8 @@ arabic2kansuji_cal <- function(num, ...){
 #' @export
 #'
 arabic2kansuji_num <- function(num, ...){
-  if(!is.numeric(num)) stop("only number can convert to kansuji.")
-  if(any(num >= 1e+17)) warning("any number, too long to convert exactly.")
 
-  unlist(purrr::map(num, arabic2kansuji_cal, ...))
+  purrr::map_chr(num, arabic2kansuji_cal, ...)
 }
 
 #' @importFrom stringr str_split
@@ -206,5 +222,5 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all"), ...){
 #'
 arabic2kansuji_all <- function(str, widths = c("halfwidth", "all"), ...){
   widths <- match.arg(widths)
-  unlist(purrr::map2(str, widths, arabic2kansuji_all_num, ...))
+  purrr::map2_chr(str, widths, arabic2kansuji_all_num, ...)
 }

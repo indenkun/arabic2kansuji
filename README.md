@@ -97,7 +97,8 @@ a string) to kansuji.
 
 ``` r
 arabic2kansuji_num("124271318人")
-#> Error in arabic2kansuji_num("124271318人"): only number can convert to kansuji.
+#> Warning in .f(.x[[i]], ...): only number can convert to kansuji.
+#> [1] NA
 ```
 
 Use `arabic2kansuji_all` to calculate and convert Arabic numerals to
@@ -109,8 +110,7 @@ processing may not be performed correctly due to problems on the R.
 
 ``` r
 arabic2kansuji_num(1234567890123456789)
-#> Warning in arabic2kansuji_num(1234567890123456768): any number, too long to
-#> convert exactly.
+#> Warning in .f(.x[[i]], ...): too long number to convert exactly.
 #> [1] "百二十三京四千五百六十七兆八千九百一億二千三百四十五万六千七百六十八"
 ```
 
@@ -121,14 +121,12 @@ arabic2kansuji_num(-123456789)
 #> [1] "負一億二千三百四十五万六千七百八十九"
 ```
 
-Some values (such as 10 to the power of 10) cannot be correctly
-calculated to a multiple greater than 2147483647, resulting in an error.
-This is a problem that relies on R’s integer processing, so there are no
-plans to fix it as the present time.
+Too large values (more than 10 to the power of 20) cannot be calculated.
 
 ``` r
-arabic2kansuji_num(10000000000)
-#> Error in .f(.x[[i]], ...): too large number and Unsupported numerical form to convert.
+arabic2kansuji_num(100000000000000000000)
+#> Warning in .f(.x[[i]], ...): too large number to convert.
+#> [1] NA
 ```
 
 `arabic2kansuji_num` accepts two or more Arabic numerals, calculates and

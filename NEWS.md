@@ -1,3 +1,9 @@
+# arabic2kansuji 0.0.0.9911
+
+## BUG FIXES
+
+* Problem solved where certain patterns of numbers could not be converted to kansuji.
+
 # arabic2kansuji 0.0.0.9910
 
 ## BUG FIXES
