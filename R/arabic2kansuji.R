@@ -62,7 +62,7 @@ arabic2kansuji_cal <- function(num, ...){
   }
   if(is.na(num) || is.nan(num) || is.infinite(num) || is.null(num)){
     warning("only number can convert to kansuji.")
-    return(num)
+    return(NA)
   }
 
   user.scipen <- getOption("scipen")
