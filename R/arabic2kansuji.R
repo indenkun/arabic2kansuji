@@ -1,27 +1,34 @@
-#' Convert Arabic numerals to kansuji
+#' Convert Arabic numerals to Kansuji
 #' @description
-#' Converts a given arabic mumerals to kansuji. `arabic2kansuji` function can
-#' also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
-#' function can convert a vector of only one Arabic numerals to kansuji. Use
-#' `arabic2kansuji_all` can calculate and convert Arabic numerals to
-#' kansuji while retaining the original non-Arabic numeral string.
+#' Converts a given Arabic numerals to Kansuji numerical figures that written
+#' in Chinese characters (in other words, Chinese numeral). `arabic2kansuji()`
+#' function can also convert Arabic numerals in the string to kansuji.
+#' `arabic2kansuji_num()` function can convert a vector of only one Arabic
+#' numerals to Kansuji. Use `arabic2kansuji_all()` can calculate and convert
+#' Arabic numerals to Kansuji while retaining the original non-Arabic numeral
+#' string.
 #' @param str Input vector.
 #' @param zero Selects whether 0 should be zero like o ("rei") or zero like have
 #'             rain crown ("zero") when Arabic numerals are converted to kansuji.
 #' @param width Selects whether you want to convert Arabic numbers, only
-#'              half-width numbers ("halfwidth") or only full-width
-#'              numbers ("fullwidth") or both half-width and full-width
+#'              half-width numbers ("half") or only full-width
+#'              numbers ("full") or both half-width and full-width
 #'              numbers ("all") when converting Arabic numbers to kansuji.
 #'
 #' @rdname arabic2kansuji
-#' @importFrom stringr str_split
-#' @importFrom stringr str_replace_all
 #' @return a character.
+#' @examples
+#' arabic2kansuji(2020)
+#' arabic2kansuji(2020, zero = "zero")
+#' arabic2kansuji(c(2019, 2020, 2021))
+#' arabic2kansuji_num(2020)
+#' arabic2kansuji_num((c(2019, 2020, 2021)))
+#' arabic2kansuji_all("This year is 2020, next year is 2021.")
 #' @export
 #'
 arabic2kansuji <- function(str,
                            zero = c("rei", "zero"),
-                           width = c("halfwidth", "fullwidth", "all")){
+                           width = c("half", "full", "all")){
 
   zero <- match.arg(zero)
   width <- match.arg(width)
@@ -36,8 +43,8 @@ arabic2kansuji <- function(str,
   arabicn_full <- unlist(stringr::str_split(arabicn_full, ""))
   kansuji <- unlist(stringr::str_split(kansuji, ""))
 
-  if(width == "halfwidth") arabicn <- arabicn_half
-  else if(width == "fullwidth") arabicn <- arabicn_full
+  if(width == "half") arabicn <- arabicn_half
+  else if(width == "full") arabicn <- arabicn_full
   else if(width == "all"){
     arabicn <- c(arabicn_half, arabicn_full)
     kansuji <- c(kansuji, kansuji)
@@ -49,10 +56,6 @@ arabic2kansuji <- function(str,
 
 }
 
-#' @importFrom purrr reduce
-#' @importFrom stringr boundary
-#' @importFrom stringr str_flatten
-#' @importFrom stats na.omit
 #'
 arabic2kansuji_cal <- function(num, ...){
   if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
@@ -65,30 +68,28 @@ arabic2kansuji_cal <- function(num, ...){
     return(NA)
   }
 
-  user.scipen <- getOption("scipen")
-  options(scipen = 100)
-
   negative <- 0
   if(num < 0){
     negative <- 1
     num <- abs(num)
   }
-  n <- purrr::reduce(stringr::str_split(num,
+
+  num.str <- prettyNum(num, scientific = FALSE)
+
+  n <- purrr::reduce(stringr::str_split(num.str,
                                         stringr::boundary(type = "character")),
                      c)
   n <- suppressWarnings(as.numeric(n))
 
-  if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(na.omit(n), ...))
+  if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(stats::na.omit(n), ...))
 
   if(anyNA(n)){
     num <- as.integer(num)
-    n <- purrr::reduce(stringr::str_split(num,
+    n <- purrr::reduce(stringr::str_split(num.str,
                                           stringr::boundary(type = "character")),
                        c)
     n <- as.numeric(n)
   }
-
-  options(scipen = user.scipen)
 
   if(any(num >= 1e+17 && num < 1e+20)){
     warning("too long number to convert exactly.")
@@ -165,9 +166,7 @@ arabic2kansuji_cal <- function(num, ...){
 
 }
 
-
 #' @param num Input only number. Accept more than one number.
-#' @importFrom purrr map_chr
 #' @rdname arabic2kansuji
 #' @export
 #'
@@ -176,12 +175,8 @@ arabic2kansuji_num <- function(num, ...){
   purrr::map_chr(num, arabic2kansuji_cal, ...)
 }
 
-#' @importFrom stringr str_split
-#' @importFrom stringr str_replace
-#' @importFrom stringr str_replace_all
-#' @importFrom stats na.omit
 #'
-arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all"), ...){
+arabic2kansuji_all_num <- function(str, widths = c("half", "all"), ...){
   widths <- match.arg(widths)
 
   str_row <- str
@@ -212,15 +207,14 @@ arabic2kansuji_all_num <- function(str, widths = c("halfwidth", "all"), ...){
 }
 
 #' @param widths Selects whether you want to convert Arabic numbers, only
-#'               half-width numbers ("halfwidth") or both half-width and
+#'               half-width numbers ("half") or both half-width and
 #'               full-width numbers ("all") when converting Arabic numbers to
 #'               kansuji.
 #' @param ...    Other arguments to carry over to `arabic2kansuji()`.
-#' @importFrom purrr map
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_all <- function(str, widths = c("halfwidth", "all"), ...){
+arabic2kansuji_all <- function(str, widths = c("half", "all"), ...){
   widths <- match.arg(widths)
   purrr::map2_chr(str, widths, arabic2kansuji_all_num, ...)
 }

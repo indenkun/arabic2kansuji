@@ -4,17 +4,13 @@
 \alias{arabic2kansuji}
 \alias{arabic2kansuji_num}
 \alias{arabic2kansuji_all}
-\title{Convert Arabic numerals to kansuji}
+\title{Convert Arabic numerals to Kansuji}
 \usage{
-arabic2kansuji(
-  str,
-  zero = c("rei", "zero"),
-  width = c("halfwidth", "fullwidth", "all")
-)
+arabic2kansuji(str, zero = c("rei", "zero"), width = c("half", "full", "all"))
 
 arabic2kansuji_num(num, ...)
 
-arabic2kansuji_all(str, widths = c("halfwidth", "all"), ...)
+arabic2kansuji_all(str, widths = c("half", "all"), ...)
 }
 \arguments{
 \item{str}{Input vector.}
@@ -23,8 +19,8 @@ arabic2kansuji_all(str, widths = c("halfwidth", "all"), ...)
 rain crown ("zero") when Arabic numerals are converted to kansuji.}
 
 \item{width}{Selects whether you want to convert Arabic numbers, only
-half-width numbers ("halfwidth") or only full-width
-numbers ("fullwidth") or both half-width and full-width
+half-width numbers ("half") or only full-width
+numbers ("full") or both half-width and full-width
 numbers ("all") when converting Arabic numbers to kansuji.}
 
 \item{num}{Input only number. Accept more than one number.}
@@ -32,7 +28,7 @@ numbers ("all") when converting Arabic numbers to kansuji.}
 \item{...}{Other arguments to carry over to `arabic2kansuji()`.}
 
 \item{widths}{Selects whether you want to convert Arabic numbers, only
-half-width numbers ("halfwidth") or both half-width and
+half-width numbers ("half") or both half-width and
 full-width numbers ("all") when converting Arabic numbers to
 kansuji.}
 }
@@ -40,9 +36,19 @@ kansuji.}
 a character.
 }
 \description{
-Converts a given arabic mumerals to kansuji. `arabic2kansuji` function can
-also convert Arabic numerals in the string to kansuji. `arabic2kansuji_num`
-function can convert a vector of only one Arabic numerals to kansuji. Use
-`arabic2kansuji_all` can calculate and convert Arabic numerals to
-kansuji while retaining the original non-Arabic numeral string.
+Converts a given Arabic numerals to Kansuji numerical figures that written
+in Chinese characters (in other words, Chinese numeral). `arabic2kansuji()`
+function can also convert Arabic numerals in the string to kansuji.
+`arabic2kansuji_num()` function can convert a vector of only one Arabic
+numerals to Kansuji. Use `arabic2kansuji_all()` can calculate and convert
+Arabic numerals to Kansuji while retaining the original non-Arabic numeral
+string.
+}
+\examples{
+arabic2kansuji(2020)
+arabic2kansuji(2020, zero = "zero")
+arabic2kansuji(c(2019, 2020, 2021))
+arabic2kansuji_num(2020)
+arabic2kansuji_num((c(2019, 2020, 2021)))
+arabic2kansuji_all("This year is 2020, next year is 2021.")
 }
