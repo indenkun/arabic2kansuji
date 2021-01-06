@@ -13,7 +13,8 @@ represent numbers written in Chinese characters.
 
 ## Installation
 
-You can install the released version of {zipangu} from CRAN with:
+You can install the released version of `{arabic2kansuji}` from CRAN
+with:
 
 ``` r
 install.packages("arabic2kansuji")

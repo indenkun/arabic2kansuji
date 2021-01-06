@@ -1,7 +1,7 @@
 Package: arabic2kansuji
 Type: Package
 Title: Convert Arabic Numerals to Kansuji
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: person("Mao", "Kobayashi", email = "kobamao.jp@gmail.com",
                   role = c("aut", "cre"))
 Description: Simple functions to convert given Arabic numerals to Kansuji  
