@@ -83,14 +83,6 @@ arabic2kansuji_cal <- function(num, ...){
 
   if(length(stats::na.omit(n)) == 1 && stats::na.omit(n) == 0) return(arabic2kansuji(stats::na.omit(n), ...))
 
-  if(anyNA(n)){
-    num <- as.integer(num)
-    n <- purrr::reduce(stringr::str_split(num.str,
-                                          stringr::boundary(type = "character")),
-                       c)
-    n <- as.numeric(n)
-  }
-
   if(any(num >= 1e+17 && num < 1e+20)){
     warning("too long number to convert exactly.")
   }else if(num >= 1e+20){
