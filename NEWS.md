@@ -1,3 +1,5 @@
+# arabic2kansuji (development version)
+
 # arabic2kansuji 0.1.1
 
 * FIX BUG
