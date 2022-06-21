@@ -1,7 +1,7 @@
 Package: arabic2kansuji
 Type: Package
 Title: Convert Arabic Numerals to Kansuji
-Version: 0.1.1.9000
+Version: 0.1.2
 Authors@R: person("Mao", "Kobayashi", email = "kobamao.jp@gmail.com",
                   role = c("aut", "cre"))
 Description: Simple functions to convert given Arabic numerals to Kansuji  
@@ -10,8 +10,7 @@ License: MIT + file LICENSE
 URL: https://github.com/indenkun/arabic2kansuji
 BugReports: https://github.com/indenkun/arabic2kansuji/issues
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Imports: 
     purrr,
     stringr,

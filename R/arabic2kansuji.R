@@ -1,10 +1,10 @@
 #' Convert Arabic numerals to Kansuji
 #' @description
 #' Converts a given Arabic numerals to Kansuji numerical figures that written
-#' in Chinese characters (in other words, Chinese numeral). `arabic2kansuji()`
+#' in Chinese characters (in other words, Chinese numeral). \code{arabic2kansuji()}
 #' function can also convert Arabic numerals in the string to kansuji.
-#' `arabic2kansuji_num()` function can convert a vector of only one Arabic
-#' numerals to Kansuji. Use `arabic2kansuji_all()` can calculate and convert
+#' \code{arabic2kansuji_num()} function can convert a vector of only one Arabic
+#' numerals to Kansuji. Use \code{arabic2kansuji_all()} can calculate and convert
 #' Arabic numerals to Kansuji while retaining the original non-Arabic numeral
 #' string.
 #' @param str Input vector.
