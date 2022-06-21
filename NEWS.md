@@ -1,3 +1,5 @@
+# arabic2kansuji (development version)
+
 # arabic2kansuji 0.1.2
 
 * Fixed the situation so that the NOTE of the check does not appear in CRAN.
