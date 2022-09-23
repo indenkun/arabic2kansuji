@@ -57,7 +57,7 @@ arabic2kansuji <- function(str,
 }
 
 #'
-arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, ...){
+arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
   if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
   if(!is.numeric(num)){
     warning("only number can convert to kansuji.")
@@ -106,8 +106,15 @@ arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, ...){
       else if(n[i] == 1) n[i] <- "\u767e"
     }
     else if(as.numeric(names(n[i])) %% 4 == 0){
-      if(add.one_thousand && n[i] != 0) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
-      else if(n[i] >= 2) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+      if(add.one_thousand){
+        if(add.one_thousand.all){
+          if(n[i] != 0) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+        }else{
+          if((as.numeric(names(n[i])) %/% 4) != 1 && n[i] != 0) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+          else if((as.numeric(names(n[i])) %/% 4) == 1 && n[i] >= 2) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+          else if((as.numeric(names(n[i])) %/% 4) == 1 && n[i] == 1) n[i] <- "\u5343"
+        }
+      }else if(n[i] >= 2) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
       else if(n[i] == 1) n[i] <- "\u5343"
     }
   }
@@ -162,16 +169,19 @@ arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, ...){
 #' @param num Input only number. Accept more than one number.
 #' @param add.one_thousand a logical whether or not 1 should be displayed as a
 #'                         Kansuji numeral when the thousandth digit is 1.
+#' @param add.one_thousand.all Specifies whether or not to display the Kansuji
+#'                             numeral 1 when the number is 1,000. This is valid
+#'                             only when \code{add.one_thousand} is TRUE.
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_num <- function(num, add.one_thousand = FALSE, ...){
+arabic2kansuji_num <- function(num, add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
 
-  purrr::map2_chr(num, add.one_thousand, arabic2kansuji_cal, ...)
+  purrr::map2_chr(num, add.one_thousand, arabic2kansuji_cal, add.one_thousand.all, ...)
 }
 
 #'
-arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, ...){
+arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
   widths <- match.arg(widths)
 
   str_row <- str
@@ -190,7 +200,7 @@ arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thous
   str_num <- stringr::str_split(str, pattern = "[^0123456789]")[[1]]
   str_num[str_num == ""] <- NA
   str_num <- stats::na.omit(str_num)
-  str_kansuji <- arabic2kansuji_num(as.numeric(str_num), add.one_thousand, ...)
+  str_kansuji <- arabic2kansuji_num(as.numeric(str_num), add.one_thousand, add.one_thousand.all, ...)
 
   if(length(str_num) == 0) return(str_row)
 
@@ -209,7 +219,7 @@ arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thous
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_all <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, ...){
+arabic2kansuji_all <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
   widths <- match.arg(widths)
-  purrr::map2_chr(str, widths, arabic2kansuji_all_num, add.one_thousand, ...)
+  purrr::map2_chr(str, widths, arabic2kansuji_all_num, add.one_thousand, add.one_thousand.all, ...)
 }

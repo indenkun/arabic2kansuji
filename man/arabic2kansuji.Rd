@@ -8,12 +8,18 @@
 \usage{
 arabic2kansuji(str, zero = c("rei", "zero"), width = c("half", "full", "all"))
 
-arabic2kansuji_num(num, add.one_thousand = FALSE, ...)
+arabic2kansuji_num(
+  num,
+  add.one_thousand = FALSE,
+  add.one_thousand.all = FALSE,
+  ...
+)
 
 arabic2kansuji_all(
   str,
   widths = c("half", "all"),
   add.one_thousand = FALSE,
+  add.one_thousand.all = FALSE,
   ...
 )
 }
@@ -32,6 +38,10 @@ numbers ("all") when converting Arabic numbers to kansuji.}
 
 \item{add.one_thousand}{a logical whether or not 1 should be displayed as a
 Kansuji numeral when the thousandth digit is 1.}
+
+\item{add.one_thousand.all}{Specifies whether or not to display the Kansuji
+numeral 1 when the number is 1,000. This is valid
+only when \code{add.one_thousand} is TRUE.}
 
 \item{...}{Other arguments to carry over to `arabic2kansuji()`.}
 
