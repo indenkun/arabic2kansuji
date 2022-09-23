@@ -4,7 +4,6 @@
 # arabic2kansuji
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 `{arabic2kansuji}` is a package consisting of Simple functions to
@@ -65,10 +64,10 @@ and half-width Arabic numerals to Kansuji by specifying arguments.
 ``` r
 # By default, full-width Arabic numerals will not be converted.
 arabic2kansuji("東京都新宿区西新宿２丁目８−１")
-#> [1] "東京都新宿区西新宿２丁目８－１"
+#> [1] "東京都新宿区西新宿２丁目８−１"
 # It can convert full-width Arabic numerals by providing an argument.
 arabic2kansuji("東京都新宿区西新宿２丁目８−１", width = "full")
-#> [1] "東京都新宿区西新宿二丁目八－一"
+#> [1] "東京都新宿区西新宿二丁目八−一"
 arabic2kansuji("全角アラビア数字１２３と半角アラビア数字123の混在も引数を指定すると変換できます。", width = "all")
 #> [1] "全角アラビア数字一二三と半角アラビア数字一二三の混在も引数を指定すると変換できます。"
 ```
@@ -84,8 +83,8 @@ arabic2kansuji("令和2年は2020年", zero = "zero")
 ```
 
 Since this function only replaces Arabic numerals with Kansuji verbatim,
-it cannot be converted by calculating 1234 as 千二百三十四. This feature is
-provided by the `arabic2kansuji_num` functions.
+it cannot be converted by calculating 1234 as 千二百三十四. This feature
+is provided by the `arabic2kansuji_num` functions.
 
 ### `arabic2kansuji_num`
 
@@ -99,7 +98,7 @@ arabic2kansuji_num(124271318)
 
 However, currently only accept one half-width Arabic numerals.
 
-Use `arabic2kansuji_cal` if you want to convert two or more half-width
+Use `arabic2kansuji_num` if you want to convert two or more half-width
 Arabic numerals by calculating the number of Chinese characters. You can
 also use `arabic2kansuji_all` to convert full-width Arabic numerals (as
 a string) to Kansuji.
@@ -177,9 +176,9 @@ arabic2kansuji_all(x)
 
 `arabic2kansuji_all` can also convert Arabic numerals and Kansuji
 intended for digits to represent a single number, such as 1億2345万
-intended for 一億二千三百四十五万. This is a kind of side effect that happens when
-Arabic numbers are converted to Kansuji because the readings are just
-the same.
+intended for 一億二千三百四十五万. This is a kind of side effect that
+happens when Arabic numbers are converted to Kansuji because the
+readings are just the same.
 
 ``` r
 arabic2kansuji_all("1億2345万")
@@ -188,32 +187,28 @@ arabic2kansuji_all("1億2345万")
 
 ## Imports packages
 
-  - `{purrr}`
-  - `{stringr}`
-  - `{stats}`
+-   `{purrr}`
+-   `{stringr}`
+-   `{stats}`
 
 ## Known Issue
 
-  - `arabic2kansuji_all` a combination of Arabic and Kansuji
+-   `arabic2kansuji_all` a combination of Arabic and Kansuji
     representing a single number of digits, such as tens or billions,
     but not including the next upper tens or billions of digits, such as
-    12345万, which is intended to be 一億二千三百四十五万, would be valued at
-    一万二千三百四十五 in the Arabic numeral place and would not
-    appear in the intended form. There is currently no error on this
+    12345万, which is intended to be 一億二千三百四十五万, would be
+    valued at 一万二千三百四十五 in the Arabic numeral place and would
+    not appear in the intended form. There is currently no error on this
     issue.
-
-<!-- end list -->
 
 ``` r
 arabic2kansuji_all("12345万")
 #> [1] "一万二千三百四十五万"
 ```
 
-  - `arabic2kansuji_*` does not support conversion of values greater
+-   `arabic2kansuji_*` does not support conversion of values greater
     than one hundred quintillion. Entering a value greater than one
     hundred quintillion will return a warning message and NA.
-
-<!-- end list -->
 
 ``` r
 arabic2kansuji_num(1e+20)

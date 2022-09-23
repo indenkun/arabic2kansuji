@@ -88,7 +88,7 @@ arabic2kansuji_num(124271318)
 
 However, currently only accept one half-width Arabic numerals.
 
-Use `arabic2kansuji_cal` if you want to convert two or more half-width Arabic numerals by calculating the number of Chinese characters. You can also use `arabic2kansuji_all` to convert full-width Arabic numerals (as a string) to Kansuji.
+Use `arabic2kansuji_num` if you want to convert two or more half-width Arabic numerals by calculating the number of Chinese characters. You can also use `arabic2kansuji_all` to convert full-width Arabic numerals (as a string) to Kansuji.
 
 ```{r, error=TRUE}
 arabic2kansuji_num("124271318人")
