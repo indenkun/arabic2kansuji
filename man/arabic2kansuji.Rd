@@ -8,9 +8,14 @@
 \usage{
 arabic2kansuji(str, zero = c("rei", "zero"), width = c("half", "full", "all"))
 
-arabic2kansuji_num(num, ...)
+arabic2kansuji_num(num, add.one_thousand = FALSE, ...)
 
-arabic2kansuji_all(str, widths = c("half", "all"), ...)
+arabic2kansuji_all(
+  str,
+  widths = c("half", "all"),
+  add.one_thousand = FALSE,
+  ...
+)
 }
 \arguments{
 \item{str}{Input vector.}
@@ -25,12 +30,15 @@ numbers ("all") when converting Arabic numbers to kansuji.}
 
 \item{num}{Input only number. Accept more than one number.}
 
+\item{add.one_thousand}{a logical whether or not 1 should be displayed as a
+Kansuji numeral when the thousandth digit is 1.}
+
 \item{...}{Other arguments to carry over to `arabic2kansuji()`.}
 
 \item{widths}{Selects whether you want to convert Arabic numbers, only
 half-width numbers ("half") or both half-width and
 full-width numbers ("all") when converting Arabic numbers to
-kansuji.}
+Kansuji.}
 }
 \value{
 a character.

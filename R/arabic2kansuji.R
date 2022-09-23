@@ -57,7 +57,7 @@ arabic2kansuji <- function(str,
 }
 
 #'
-arabic2kansuji_cal <- function(num, ...){
+arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, ...){
   if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
   if(!is.numeric(num)){
     warning("only number can convert to kansuji.")
@@ -106,7 +106,8 @@ arabic2kansuji_cal <- function(num, ...){
       else if(n[i] == 1) n[i] <- "\u767e"
     }
     else if(as.numeric(names(n[i])) %% 4 == 0){
-      if(n[i] >= 2) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+      if(add.one_thousand && n[i] != 0) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
+      else if(n[i] >= 2) n[i] <- paste0(arabic2kansuji(n[i]), "\u5343")
       else if(n[i] == 1) n[i] <- "\u5343"
     }
   }
@@ -159,16 +160,18 @@ arabic2kansuji_cal <- function(num, ...){
 }
 
 #' @param num Input only number. Accept more than one number.
+#' @param add.one_thousand a logical whether or not 1 should be displayed as a
+#'                         Kansuji numeral when the thousandth digit is 1.
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_num <- function(num, ...){
+arabic2kansuji_num <- function(num, add.one_thousand = FALSE, ...){
 
-  purrr::map_chr(num, arabic2kansuji_cal, ...)
+  purrr::map2_chr(num, add.one_thousand, arabic2kansuji_cal, ...)
 }
 
 #'
-arabic2kansuji_all_num <- function(str, widths = c("half", "all"), ...){
+arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, ...){
   widths <- match.arg(widths)
 
   str_row <- str
@@ -187,7 +190,7 @@ arabic2kansuji_all_num <- function(str, widths = c("half", "all"), ...){
   str_num <- stringr::str_split(str, pattern = "[^0123456789]")[[1]]
   str_num[str_num == ""] <- NA
   str_num <- stats::na.omit(str_num)
-  str_kansuji <- arabic2kansuji_num(as.numeric(str_num), ...)
+  str_kansuji <- arabic2kansuji_num(as.numeric(str_num), add.one_thousand, ...)
 
   if(length(str_num) == 0) return(str_row)
 
@@ -201,12 +204,12 @@ arabic2kansuji_all_num <- function(str, widths = c("half", "all"), ...){
 #' @param widths Selects whether you want to convert Arabic numbers, only
 #'               half-width numbers ("half") or both half-width and
 #'               full-width numbers ("all") when converting Arabic numbers to
-#'               kansuji.
+#'               Kansuji.
 #' @param ...    Other arguments to carry over to `arabic2kansuji()`.
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_all <- function(str, widths = c("half", "all"), ...){
+arabic2kansuji_all <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, ...){
   widths <- match.arg(widths)
-  purrr::map2_chr(str, widths, arabic2kansuji_all_num, ...)
+  purrr::map2_chr(str, widths, arabic2kansuji_all_num, add.one_thousand, ...)
 }

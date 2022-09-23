@@ -1,5 +1,7 @@
 # arabic2kansuji (development version)
 
+* A new argument (`add.one_thousand`) has been added to specify whether or not 1 should be displayed as a Chinese numeral when the thousandth digit is 1.
+
 # arabic2kansuji 0.1.2
 
 * Fixed the situation so that the NOTE of the check does not appear in CRAN.

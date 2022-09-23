@@ -10,7 +10,7 @@ License: MIT + file LICENSE
 URL: https://github.com/indenkun/arabic2kansuji
 BugReports: https://github.com/indenkun/arabic2kansuji/issues
 Encoding: UTF-8
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Imports: 
     purrr,
     stringr,
