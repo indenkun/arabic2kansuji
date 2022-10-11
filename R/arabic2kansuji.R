@@ -57,7 +57,7 @@ arabic2kansuji <- function(str,
 }
 
 #'
-arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
+arabic2kansuji_cal <- function(num, add.one_thousand = TRUE, add.one_thousand.all = FALSE, ...){
   if(length(num) > 1) stop("only one number can convert to kansuji. use `arabic2kansuji_cal` to convert to over 2 numbers.")
   if(!is.numeric(num)){
     warning("only number can convert to kansuji.")
@@ -175,13 +175,13 @@ arabic2kansuji_cal <- function(num, add.one_thousand = FALSE, add.one_thousand.a
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_num <- function(num, add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
+arabic2kansuji_num <- function(num, add.one_thousand = TRUE, add.one_thousand.all = FALSE, ...){
 
   purrr::map2_chr(num, add.one_thousand, arabic2kansuji_cal, add.one_thousand.all, ...)
 }
 
 #'
-arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
+arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thousand = TRUE, add.one_thousand.all = FALSE, ...){
   widths <- match.arg(widths)
 
   str_row <- str
@@ -219,7 +219,7 @@ arabic2kansuji_all_num <- function(str, widths = c("half", "all"), add.one_thous
 #' @rdname arabic2kansuji
 #' @export
 #'
-arabic2kansuji_all <- function(str, widths = c("half", "all"), add.one_thousand = FALSE, add.one_thousand.all = FALSE, ...){
+arabic2kansuji_all <- function(str, widths = c("half", "all"), add.one_thousand = TRUE, add.one_thousand.all = FALSE, ...){
   widths <- match.arg(widths)
   purrr::map2_chr(str, widths, arabic2kansuji_all_num, add.one_thousand, add.one_thousand.all, ...)
 }
