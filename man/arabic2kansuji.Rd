@@ -10,7 +10,7 @@ arabic2kansuji(str, zero = c("rei", "zero"), width = c("half", "full", "all"))
 
 arabic2kansuji_num(
   num,
-  add.one_thousand = FALSE,
+  add.one_thousand = TRUE,
   add.one_thousand.all = FALSE,
   ...
 )
@@ -18,7 +18,7 @@ arabic2kansuji_num(
 arabic2kansuji_all(
   str,
   widths = c("half", "all"),
-  add.one_thousand = FALSE,
+  add.one_thousand = TRUE,
   add.one_thousand.all = FALSE,
   ...
 )
