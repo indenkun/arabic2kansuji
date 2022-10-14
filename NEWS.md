@@ -1,3 +1,5 @@
+# arabic2kansuji (development version)
+
 # arabic2kansuji 0.1.3
 
 * Made it possible to correct conversions of some numbers to Chinese numerals that are not erroneous but are uncomfortable for native speakers.
